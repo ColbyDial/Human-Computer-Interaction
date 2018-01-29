@@ -17,6 +17,7 @@ public class CalculatorView implements ModelListener
 {
 
 	private Text expression;
+	public String append = "HelloWorld";
 	private final Shell shell;
 	/*
 	 * 
@@ -28,7 +29,7 @@ public class CalculatorView implements ModelListener
 		this.model = model;
 		
 		shell.setSize( 300, 300 );
-		shell.setText( "SWT Calc Demo" );
+		shell.setText( "SWT Calculator" );
 		
 		init( d, controller );
 		
@@ -40,30 +41,33 @@ public class CalculatorView implements ModelListener
 	private void init(final Display display, final Controller controller)
 	{
 		expression = new Text( shell, SWT.BORDER );
-		expression.setLayoutData( new GridData(SWT.FILL, SWT.TOP, false, true, 4, 1 ) );
+		expression.setLayoutData( new GridData(SWT.FILL, SWT.TOP, false, true, 5, 1 ) );
 		expression.setFont( new Font( display, "Courier", 20, SWT.DEFAULT ) );
+		
 		
 		final GridData buttonLayoutData = new GridData(SWT.FILL, SWT.FILL, true, true );
 		
 		Button backspace = new Button( shell, SWT.PUSH );
 		backspace.setText( "<-X" );
-		backspace.setLayoutData(  buttonLayoutData );
+		backspace.setLayoutData( new GridData(SWT.FILL, SWT.FILL, false, true, 2, 1) );
 		backspace.addSelectionListener( controller.getSelectionListener( 'X' ) );
+		backspace.setToolTipText("delete last character");
 		
 		Button clear = new Button( shell, SWT.PUSH );
 		clear.setText( "C" );
-		clear.setLayoutData( buttonLayoutData );
+		clear.setLayoutData( new GridData(SWT.FILL, SWT.FILL, false, true, 2, 1) );
 		clear.addSelectionListener( controller.getSelectionListener( 'C' ) );
-		
-		Button percent = new Button( shell, SWT.PUSH );
-		percent.setText( "%" );
-		percent.setLayoutData( buttonLayoutData );
-		percent.addSelectionListener( controller.getSelectionListener( '%' ) );
+		clear.setToolTipText("clear display");
 		
 		Button times = new Button( shell, SWT.PUSH );
 		times.setText( "*" );
 		times.setLayoutData( buttonLayoutData );
 		times.addSelectionListener( controller.getSelectionListener( '*' ) );
+		
+		Button percent = new Button( shell, SWT.PUSH );
+		percent.setText( "." );
+		percent.setLayoutData( buttonLayoutData );
+		percent.addSelectionListener( controller.getSelectionListener( '.' ) );		
 		
 		Button seven = new Button( shell, SWT.PUSH );
 		seven.setText( "7" );
@@ -85,6 +89,13 @@ public class CalculatorView implements ModelListener
 		divided.setLayoutData( buttonLayoutData );
 		divided.addSelectionListener( controller.getSelectionListener( '/' ) );
 		
+
+		Button	closeP = new Button( shell, SWT.PUSH );
+		closeP.setText( ")" );
+		closeP.setLayoutData( buttonLayoutData );
+		closeP.setToolTipText("does not work yet");
+
+		
 		Button four = new Button( shell, SWT.PUSH );
 		four.setText( "4" );
 		four.setLayoutData( buttonLayoutData );
@@ -104,16 +115,23 @@ public class CalculatorView implements ModelListener
 		add.setText( "+" );
 		add.setLayoutData( buttonLayoutData );
 		add.addSelectionListener( controller.getSelectionListener( '+' ) );	
+
+		
+		Button openP = new Button( shell, SWT.PUSH );
+		openP.setText( "(" );
+		openP.setLayoutData( buttonLayoutData );
+		openP.setToolTipText("does not work yet");
+
 		
 		Button one = new Button( shell, SWT.PUSH );
 		one.setText( "1" );
 		one.setLayoutData( buttonLayoutData );
-		one.addSelectionListener( controller.getSelectionListener( '1' ) );
+		one.addSelectionListener( controller.getSelectionListener( '1' ) );	
 		
 		Button two = new Button( shell, SWT.PUSH );
 		two.setText( "2" );
 		two.setLayoutData( buttonLayoutData );
-		two.addSelectionListener( controller.getSelectionListener( '2' ) );		
+		two.addSelectionListener( controller.getSelectionListener( '2' ) );	
 		
 		Button three = new Button( shell, SWT.PUSH );
 		three.setText( "3" );
@@ -125,28 +143,29 @@ public class CalculatorView implements ModelListener
 		minus.setLayoutData( buttonLayoutData );
 		minus.addSelectionListener( controller.getSelectionListener( '-' ) );
 		
+		Button dot = new Button( shell, SWT.PUSH );
+		dot.setText( "." );
+		dot.setLayoutData( buttonLayoutData );
+		dot.addSelectionListener( controller.getSelectionListener( '.' ) );
+		
 		Button zero = new Button( shell, SWT.PUSH );
 		zero.setText( "0" );
 		zero.setLayoutData( new GridData(SWT.FILL, SWT.FILL, false, true, 3, 1) );
 		zero.addSelectionListener( controller.getSelectionListener( '0' ) );
-		
 		
 		Button evaluate = new Button( shell, SWT.PUSH );
 		evaluate.setText( "=" );
 		evaluate.setLayoutData( buttonLayoutData );
 		evaluate.addSelectionListener( controller.getEvaluateSelectionListener() );
 		
-		//expression.setLayoutData( new GridData(SWT.FILL, SWT.TOP, false, true, 4, 1 ) );
-
 		
-		shell.setLayout( new GridLayout( 4, true ) );
+		shell.setLayout( new GridLayout( 5, true ) );
 	}
 
 	@Override
 	public void expressionUpdated()
 	{
-		// TODO Auto-generated method stub
-		
+		expression.setText(model.expression);
 	}
 	public boolean isDisposed()
 	{

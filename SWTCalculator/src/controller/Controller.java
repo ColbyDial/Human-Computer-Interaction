@@ -8,7 +8,7 @@ import model.Model;
 
 public class Controller
 {
-private final Model model;
+	private final Model model;
 	
 	public Controller( final Model model )
 	{
@@ -21,7 +21,9 @@ private final Model model;
 		{
 			public void widgetSelected(final SelectionEvent e)
 			{
-				//model.append(valueToAppend);
+				
+				model.append(valueToAppend);
+				
 			}
 		};
 	}
@@ -32,7 +34,7 @@ private final Model model;
 		{
 			public void widgetSelected(SelectionEvent e)
 			{
-				//model.evaluate();
+				model.evaluate();
 			}
 		};
 	}
