@@ -1,5 +1,6 @@
 package model;
 
-public interface ModelListener {
+public interface ModelListener
+{
 	void expressionUpdated();
 }
